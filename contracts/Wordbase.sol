@@ -9,7 +9,7 @@ contract Wordbase {
 
   mapping(address => Node) realms;
 
-  function getNode(address addr , bytes32[] fields) internal returns (Node storage) {
+  function _getNode(address addr , bytes32[] fields) internal returns (Node storage) {
     Node node = realms[addr];
     for (uint i = 0; i < fields.length; i ++) {
       node = node.nodes[fields[i]];
@@ -18,7 +18,7 @@ contract Wordbase {
   }
 
   function get(address addr, bytes32[] fields) constant returns (bytes32) {
-    return getNode(addr, fields).value;
+    return _getNode(addr, fields).value;
   }
 
   function get(bytes32[] fields) constant returns (bytes32) {
@@ -26,7 +26,7 @@ contract Wordbase {
   }
 
   function set(bytes32[] fields, bytes32 value) {
-    getNode(msg.sender, fields).value = value;
+    _getNode(msg.sender, fields).value = value;
   }
 
 }
