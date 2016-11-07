@@ -44,11 +44,23 @@ describe('contracts', () => {
     })
 
     it('should set [a, b, c] to d', () => {
-      return wordbase.set.q([a, b, c], d).should.eventually.be.fulfilled
+      return wordbase.set['bytes32[],bytes32'].q([a, b, c], d).should.eventually.be.fulfilled
     })
 
     it('should set [a, b, c, d, e] to f', () => {
-      return wordbase.set.q([a, b, c, d, e], f).should.eventually.be.fulfilled
+      return wordbase.set['bytes32[],bytes32'].q([a, b, c, d, e], f).should.eventually.be.fulfilled
+    })
+
+    it('should mutli-set [a] to b', () => {
+      return wordbase.set['bytes32[],uint32[],bytes32[]'].q([a], [1] ,[b]).should.eventually.be.fulfilled
+    })
+
+    it('should mutli-set [b] to c, [c] to d, [d] to e, [a, b] to c, [c, d, e] to f, [f] to a', () => {
+      return wordbase.set['bytes32[],uint32[],bytes32[]'].q(
+        [b, c, d, a, b, c, d, e, f],
+        [1, 1, 1, 2, 3, 1],
+        [c, d, e, c, f, a]
+      ).should.eventually.be.fulfilled
     })
 
     it('should get(bytes32[]) [a, b, c] as d', () => {
@@ -66,6 +78,35 @@ describe('contracts', () => {
     it('should get(address,bytes32[]) [a, b, c, d, e]  as f', () => {
      return wordbase.get['address,bytes32[]'].q(chaithereum.account, [a, b, c, d, e]).should.eventually.be.equal(f)
     })
+
+    it('should get(bytes32[]) [a] as b', () => {
+     return wordbase.get['bytes32[]'].q([a]).should.eventually.be.equal(b)
+    })
+
+    it('should get(bytes32[]) [b] as c', () => {
+     return wordbase.get['bytes32[]'].q([b]).should.eventually.be.equal(c)
+    })
+
+    it('should get(bytes32[]) [c] as d', () => {
+     return wordbase.get['bytes32[]'].q([c]).should.eventually.be.equal(d)
+    })
+
+    it('should get(bytes32[]) [d] as e', () => {
+     return wordbase.get['bytes32[]'].q([d]).should.eventually.be.equal(e)
+    })
+
+    it('should get(bytes32[]) [a, b] as c', () => {
+     return wordbase.get['bytes32[]'].q([a, b]).should.eventually.be.equal(c)
+    })
+
+    it('should get(bytes32[]) [c, d, e] as f', () => {
+     return wordbase.get['bytes32[]'].q([c, d, e]).should.eventually.be.equal(f)
+    })
+
+    it('should get(bytes32[]) [f] as a', () => {
+     return wordbase.get['bytes32[]'].q([f]).should.eventually.be.equal(a)
+    })
+
   })
 
   describe('WordbaseClient', () => {

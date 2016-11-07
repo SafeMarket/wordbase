@@ -29,4 +29,32 @@ contract Wordbase {
     _getNode(msg.sender, fields).value = value;
   }
 
+  function set(bytes32[] fields, uint32[] fieldsLengths, bytes32[] values) {
+    
+    uint first = 0;
+    uint last = fieldsLengths[0] - 1;
+    uint valuesSet = 0;
+
+    bytes32[] memory currentFields = new bytes32[](last - first + 1);
+
+    for (uint i = 0; i < fields.length; i ++) {
+
+      currentFields[i - first] = fields[i];
+
+      if(i == last) {
+        
+        _getNode(msg.sender, currentFields).value = values[valuesSet];
+
+        valuesSet++;
+        
+        if (values.length > valuesSet) {
+          first = i + 1;
+          last = first + fieldsLengths[valuesSet] - 1;
+          currentFields = new bytes32[](last - first + 1);
+        }
+        
+      }
+    }
+  }
+
 }
