@@ -15,13 +15,43 @@ $ npm i wordbase --save
 ### Wordbase.sol
 
 ```js
+
+//instantiation
 let wordbase = web3.eth.contract(wordbaseAbi).at(wordbaseContract)
+
+//Simple set/get
 wordbase.set(['path', 'to', 'value'], myValue)
 wordbase.get(['path', 'to', 'value']) //mValue
 
-chaithereum.web3.eth.contract(JSON.parse(solcOutput.contracts.Wordbase.interface)).new.q({
-  data: solcOutput.contracts.Wordbase.bytecode
-}
+//Multi-set (set multiple values in a signle transaction)
+// 1. ['productsCount'] = 2
+// 2. ['product', 0, 'name'] => 'Lemonade'
+// 3. ['product', 0, 'price'] => 100
+// 4. ['product', 1, 'name'] => 'Cookie'
+// 5. ['product', 1, 'price'] => 200
+
+wordbase.set(
+  [
+    'productsCount',
+    'product', 0, 'name',
+    'product', 0, 'price',
+    'product', 1, 'name',
+    'product', 1, 'price'
+  ], [
+    1, //length of fields in #1
+    3, //length of fields in #2
+    3, //length of fields in #3
+    3, //length of fields in #4
+    3  //length of fields in #5
+  ], [
+    2,
+    'Lemonade',
+    100,
+    'Cookie',
+    200
+  ]
+)
+
 ```
 
 ## Running tests
