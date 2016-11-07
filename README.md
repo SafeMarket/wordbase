@@ -52,6 +52,23 @@ wordbase.set(
   ]
 )
 
+wordbase.get(
+  [
+    'productsCount',
+    'product', 0, 'name',
+    'product', 0, 'price',
+    'product', 1, 'name',
+    'product', 1, 'price'
+  ], [
+    1, //length of fields in #1
+    3, //length of fields in #2
+    3, //length of fields in #3
+    3, //length of fields in #4
+    3  //length of fields in #5
+  ]
+)
+// [2, 'Lemonade', 100, 'Cookie', 200]
+
 ```
 
 ## Running tests

@@ -107,6 +107,31 @@ describe('contracts', () => {
      return wordbase.get['bytes32[]'].q([f]).should.eventually.be.equal(a)
     })
 
+    it('should multi-get(bytes32[],uint32[]) [a, b, c] as d', () => {
+     return wordbase.get['bytes32[],uint32[]'].q([a, b, c], [3]).should.eventually.be.deep.equal([d])
+    })
+
+    it('should multi-get(bytes32[],uint32[]) [a, b, c, d, e] as f, [a] as b, [a, b] as c', () => {
+     return wordbase.get['bytes32[],uint32[]'].q(
+      [
+        a, b, c, d, e,
+        a,
+        a, b
+      ], [
+        5,
+        1,
+        2
+      ]).then((values) => {
+        values.should.be.instanceOf(Array)
+        values.should.have.length(3)
+        values[0].should.equal(f)
+        values[1].should.equal(b)
+        values[2].should.equal(c)
+      }).should.be.fulfilled
+    })
+
+   
+
   })
 
   describe('WordbaseClient', () => {
