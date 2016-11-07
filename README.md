@@ -17,13 +17,13 @@ $ npm i wordbase --save
 ```js
 
 //instantiation
-let wordbase = web3.eth.contract(wordbaseAbi).at(wordbaseContract)
+let wordbase = web3.eth.contract(wordbaseAbi).at(wordbaseAddress)
 
 //Simple set/get
 wordbase.set(['path', 'to', 'value'], myValue)
 wordbase.get(['path', 'to', 'value']) //mValue
 
-//Multi-set (set multiple values in a signle transaction)
+//Multi-set (set multiple values in a single transaction)
 // 1. ['productsCount'] = 2
 // 2. ['product', 0, 'name'] => 'Lemonade'
 // 3. ['product', 0, 'price'] => 100
