@@ -1,6 +1,6 @@
 {
   "name": "wordbase",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Single word (bytes32) storage for EVM contracts",
   "main": "index.js",
   "directories": {
