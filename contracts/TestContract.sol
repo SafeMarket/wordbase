@@ -1,14 +1,16 @@
 pragma solidity ^0.4.4;
 
-import "wordbaseClient.sol";
+import "Wordbase.sol";
 
-contract TestContract is wordbaseClient {
+contract TestContract {
+
+  Wordbase public wordbase;
  
   function TestContract(address wordbaseAddr) {
-    _setWordbase(wordbaseAddr);
+    wordbase = Wordbase(wordbaseAddr);
   }
 
   function setWord(bytes32[] fields, bytes32 value){
-    _setWord(fields, value);
+    wordbase.set(fields, value);
   }
 }
